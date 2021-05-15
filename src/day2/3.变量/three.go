@@ -131,4 +131,24 @@ func main() {
 	name_ptr = "曹煦阳"
 	fmt.Println(name_ptr, &name_ptr)
 	fmt.Println(nick_name_ptr, &nick_name_ptr)
+
+	//-------常量---------//
+	//const age int = 98
+	//const age = 98
+	//fmt.Println(age)
+	//常量因式分解
+	//const (
+	//	v1 = 123
+	//	v2 = 456
+	//)
+	//fmt.Println(v1, v2)
+
+	const (   //可有可无，当作一个声明常量时的计数器（值为0）
+		v1 = iota
+		v2
+		v3
+		v4
+		v5
+	)
+	fmt.Println(v1,v2,v3,v4,v5)
 }
