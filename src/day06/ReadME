@@ -1,0 +1,90 @@
+今日概要：
+** 切片：用于表示多个数据（数据集合），可以理解为动态数组。
+** 字典：键值对。例如：{"name":"曹煦阳", "age":"29", "role":"student"}
+** 指针：用于表示内存地址的类型。
+
+1 切片
+切片是Go中重要的数据类型，每个切片对象内部都维护着：数组指针、切片长度、切片容量三个数据。
+type slice struct {
+    array unsafe.Pointer
+    len int
+    cap int
+}
+在向切片中追加的数据个数大于容量时，内部会自动扩容且每次扩容都是当前容量的2倍（当容量超过1024时，每次扩容则只增加1/4容量）。
+1.1 创建切片
+	// 一、创建切片：cap为0、len为0的切片
+	var nums []int
+
+	// 二、创建切片：cap为3、len为3的切片，且指针指向[11, 22, 33]
+	var data = []int{11, 22, 33}
+	data := []int{11, 22, 33}
+
+	// 三、创建切片：cap为3、len为1的切片，且指针指向默认值0
+	// make只用于切片、字典、channel
+	var users = make([]int, 1, 3)
+
+	// 切片的指针类型
+    var v1 = new([]int)
+    // 指针类型(nil)
+    var v2 *[]int
+
+1.2 自动扩容
+	// 扩容前和扩容后的内存是不同的。
+	m1 := []int{11, 22, 33}
+	m2 := append(m1, 44)
+	fmt.Println(len(m1), cap(m1))
+	fmt.Println(len(m2), cap(m2))
+	m1[0] = 321
+	fmt.Println(m1, m2)
+
+1.3 常见操作（1、2、3、4、7常见功能）
+1.3.1 长度和容量
+    v1 := []int{11, 22, 33}
+	fmt.Println(len(v1), cap(v1))
+1.3.2 索引
+    v1 := []string{"cxy", "Bob", "John"}
+    v1[0]  v1[1]  v1[2]
+    注意：索引不能大于或等于切片的长度。
+1.3.3 切片
+     v1 := []int{11, 22, 33, 44, 55, 66}
+     v2 := v1[1:3]
+     v3 := v1[1:]
+     v4 := v1[:3]
+     注意：通过切片切出来的数据和原切片内部存储的数据地址相同。
+1.3.4 追加
+     v1 := []int{11, 22, 33}
+     v2 := append(v1, 44)
+     v3 := append(v1, 55, 66, 77, 88)
+     v4 := append(v1, []int{100, 200, 300}...)
+1.3.5 删除
+    s1 := []int{11, 22, 33, 44, 55, 66}
+	deleteIndex := 2
+	result := append(s1[:deleteIndex], s1[deleteIndex+1:]...)
+	fmt.Println(result) 	//[11 22 44 55 66]
+	fmt.Println(s1)			//[11 22 44 55 66 66]
+	注意：使用切片时，一般不太会使用删除。效率低，修改了原切片的内容（被覆盖）。【建议使用链表】
+1.3.6 插入
+	r1 := []int{11, 22, 33, 44, 55, 66}
+	insertIndex := 3 		//在索引3的位置插入99
+	insertResult := make([]int, 0, len(r1)+1)
+	insertResult = append(insertResult, r1[:insertIndex]...)
+	insertResult = append(insertResult, 99)
+	insertResult = append(insertResult, r1[insertIndex:]...)
+	fmt.Println(r1, insertResult)
+	注意：效率低下。【建议使用链表】
+1.3.7 循环
+    // 切片两种循环方式
+    q1 := []int{11, 22, 33, 44, 55, 66}
+	for i:=0; i < len(q1); i++ {
+		fmt.Println(i, q1[i])
+	}
+	for index, value := range q1 {
+		fmt.Println(index, value)
+	}
+
+1.4 切片嵌套
+    ss1 := []int{11, 22, 33, 44, 55, 66}
+    ss2 := [][]int{[]int{11, 22}, []int{44, 55}}
+
+1.5 变量赋值
+
