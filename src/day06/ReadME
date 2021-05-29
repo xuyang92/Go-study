@@ -87,4 +87,42 @@ type slice struct {
     ss2 := [][]int{[]int{11, 22}, []int{44, 55}}
 
 1.5 变量赋值
-
+1.5.1 整型
+	v1 := 1
+	v2 := v1
+	fmt.Printf("v1的内存地址：%p \n", &v1)	//0xc0000180a8
+	fmt.Printf("v2的内存地址：%p \n", &v2)	//0xc0000180c0
+1.5.2 布尔类型
+	b1 := false
+	b2 := b1
+	fmt.Printf("b1的内存地址：%p \n", &b1)	//0xc0000180c8
+	fmt.Printf("b2的内存地址：%p \n", &b2)	//0xc0000180c9
+1.5.3 浮点型
+	f1 := 3.14
+	f2 := f1
+	fmt.Printf("f1的内存地址：%p \n", &f1)	//0xc0000180e0
+	fmt.Printf("f2的内存地址：%p \n", &f2)	//0xc0000180e8
+1.5.4 字符串
+	s1 := "曹煦阳"
+	s2 := s1
+	fmt.Printf("s1的内存地址：%p \n", &s1)	//0xc000042240
+	fmt.Printf("s2的内存地址：%p \n", &s2)	//0xc000042250
+	注意：字符串内部元素是不可以修改的。
+1.5.5 数组
+	arr1 := [2]int{6, 9}
+	arr2 := arr1
+	fmt.Printf("arr1的内存地址：%p \n", &arr1)	//0xc0000180f0
+	fmt.Printf("arr2的内存地址：%p \n", &arr2)	//0xc000018100
+	arr1[0] = 1111
+	fmt.Println(arr1, arr2)
+1.5.6 切片***
+	sli1 := []int{6, 9}
+	sli2 := sli1
+	fmt.Printf("sli1的内存地址：%p \n", &sli1)	//0xc000004078
+	fmt.Printf("sli2的内存地址：%p \n", &sli2)	//0xc000004090
+	sli1[0] = 1111
+	sli1 = append(sli1, 999)
+	fmt.Println(sli1, sli2)
+	注意：如果扩容，那么内部存储数据的数组就会重新开辟区域。
+	总结：目前所学的所有数据类型中，在修改切片的内部元素时，会造成所有的赋值的变量同时改变（不扩容的情况下）。
+	扩展：引用类型和值类型。
