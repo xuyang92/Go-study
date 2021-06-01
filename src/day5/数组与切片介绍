@@ -13,7 +13,7 @@
 	var ages = [3]int{0:65, 2:16}
 	//方式四：省略个数
 	var names_1 = [...]string{"曹煦阳", "Bob", "John"}
-	var ages_1 = []int{0:65, 2:16}
+	var ages_1 = [...]int{0:65, 2:16}
 
 	//声明：指针类型的数组{本质上是一个指针类型}
 	//不会开辟内存来初始化数组中的值，numbers == nil

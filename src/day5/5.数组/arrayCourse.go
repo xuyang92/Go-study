@@ -18,7 +18,7 @@ func main() {
 	fmt.Println(ages)
 	//方式四：省略个数
 	var names_1 = [...]string{"曹煦阳", "Bob", "John"}
-	var ages_1 = []int{0:65, 2:16}
+	var ages_1 = [...]int{0:65, 2:16}
 	fmt.Println(names_1, ages_1)
 
 	//数组指针
