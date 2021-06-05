@@ -32,9 +32,26 @@ func f4() (x int)  {
 	return 5  	// 返回值=x=5
 }
 
+func f5() (x int) {
+	defer func(x int) int {
+		x++
+		return x
+	}(x)
+	return 5
+}
+
+// 传一个函数的指针到匿名函数中
+func f6() (x int) {
+	defer func(x *int) {
+		(*x)++
+	}(&x)
+	return 5
+}
 func main() {
 	fmt.Println(f1())
 	fmt.Println(f2())
 	fmt.Println(f3())
 	fmt.Println(f4())
+	fmt.Println(f5())
+	fmt.Println(f6())
 }

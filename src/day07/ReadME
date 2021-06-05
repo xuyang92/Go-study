@@ -65,3 +65,14 @@ func main() {
 	fmt.Println(f1(50)) //90
 }
 变量f是一个函数并且它引用了其外部作用域中的x变量，此时f就是一个闭包。 在f的生命周期内，变量x也一直有效。
+
+6、内置函数介绍
+close：主要是用来关闭channel
+len：用来求长度，比如string、array、slice、map、channel
+new：用来分配内存，主要用来分配值类型，比如int、struct。返回的是指针
+make：用来分配内存，主要是用来分配引用类型，比如chan、map、slice
+append：用来追加元素到数组、slice中
+panic和recover：用来做错误处理
+Go语言中目前（Go1.16）是没有异常机制，但是使用panic/recover模式来处理错误。
+panic可以在任何地方引发，但recover只有在defer调用的函数中有效。
+注意：recover()必须搭配defer使用；defer一定要在可能引发panic的语句之前定义。
